@@ -12,8 +12,6 @@ function computerPlay() {
     return options[randomIndex]
 }
 
-console.log(computerPlay())
-
 /**
 Set a function with 2 parameters: playerSelection, computerSelection
 player selection comes from an input
@@ -41,10 +39,32 @@ let playerSelection = prompt().toLowerCase()
 let computerSelection = computerPlay()
 
 
-function playRound(computerSelection, playerSelection) {
-
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        return "It's a match!"
+    } else if (playerSelection === "rock") {
+        if (computerSelection === "paper") {
+            return "You lose! Paper beats rock" 
+        } else if (computerSelection === "scissors") {
+            return "You win! Rock beats scissors"
+        } 
+    } else if (playerSelection === "paper") {
+        if (computerSelection === "rock") {
+            return "You win! Paper beats rock"
+        } else if (computerSelection === "scissors") {
+            return "You lose! Scissors beat paper"
+        }
+    } else if (playerSelection === "scissors") {
+        if (computerSelection === "rock") {
+            return "You lose! Rock beats scissors"
+        } else if (computerSelection === "paper") {
+            return "You win! Scissors beat paper"
+        } 
+    } else {
+        return "Oopsie woopsie! You should pick 'rock', 'paper' or 'scissors'"
+    }
 }
   
-
+console.log(computerSelection)
 console.log(playerSelection)
-console.log(playRound(computerSelection, playerSelection))
+console.log(playRound(playerSelection, computerSelection))
