@@ -16,55 +16,63 @@ function computerPlay() {
 Set a function with 2 parameters: playerSelection, computerSelection
 player selection comes from an input
 computer selection comes from random (computerPlay function)
-
-cases: 
-C rock-paper P = P wins
-C rock-scissors P = C wins
-C rock-rock P = Match
-
-C paper-paper P = Match
-C paper-scissors P = P wins
-C paper-rock = C wins
-
-C scissors-paper P = C wins
-C scissors-scissors P = Match
-C scissors-rock P = P wins
-
-else you have to enter "rock, paper or scissors"
-
 return the winner of the round
 **/
 
-let playerSelection = prompt().toLowerCase()
-let computerSelection = computerPlay()
-
-
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection, playerScore) {
     if (playerSelection === computerSelection) {
-        return "It's a match!"
+        return playerScore
     } else if (playerSelection === "rock") {
         if (computerSelection === "paper") {
-            return "You lose! Paper beats rock" 
+            return --playerScore
         } else if (computerSelection === "scissors") {
-            return "You win! Rock beats scissors"
+            return ++playerScore
         } 
     } else if (playerSelection === "paper") {
         if (computerSelection === "rock") {
-            return "You win! Paper beats rock"
+            return ++playerScore
         } else if (computerSelection === "scissors") {
-            return "You lose! Scissors beat paper"
+            return --playerScore
         }
     } else if (playerSelection === "scissors") {
         if (computerSelection === "rock") {
-            return "You lose! Rock beats scissors"
+            return --playerScore
         } else if (computerSelection === "paper") {
-            return "You win! Scissors beat paper"
+            return ++playerScore
         } 
     } else {
-        return "Oopsie woopsie! You should pick 'rock', 'paper' or 'scissors'"
+        alert("Oopsie woopsie! You should pick 'rock', 'paper' or 'scissors'")
+        return playerScore
     }
 }
   
-console.log(computerSelection)
-console.log(playerSelection)
-console.log(playRound(playerSelection, computerSelection))
+/** 
+Set a function called game() 
+Set a count = 5 and -1 each round til 0
+Set a score = 0 and +1 every time player wins +0 if match and -1 if loses
+
+Finish game at round 5
+Return the winner
+**/
+
+function game() {
+    let playerScore = 0
+    let playerSelection
+    let computerSelection
+
+    for (currentRound = 1; currentRound <= 5; currentRound++) {
+        playerSelection = prompt("Write rock, paper or scissors - ROUND " + currentRound).toLowerCase()
+        computerSelection = computerPlay()
+        playerScore = playRound(playerSelection, computerSelection, playerScore)
+        console.log("Current score: " + playerScore)
+    }
+    if (playerScore === 0) {
+        return "It's a match!"
+    } else if (playerScore > 0) {
+        return "You win! Your score is: " + playerScore
+    } else {
+        return "You lose! Your score is: " + playerScore
+    }
+}
+
+console.log(game())
