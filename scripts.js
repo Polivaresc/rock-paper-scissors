@@ -1,5 +1,6 @@
 
 let playerScore = 0;
+let computerScore = 0;
 let round = 1;
 
 const playerRock = document.querySelector("#rockBtn");
@@ -18,8 +19,6 @@ playerScissors.addEventListener("click", () => {
     playRound("scissors")
 })
 
-
-
 function computerPlay() {
     let options = ["rock", "paper", "scissors"]
     let randomIndex = Math.floor(Math.random()*3)
@@ -32,7 +31,7 @@ function playRound(playerSelection) {
 
     if (playerSelection === "rock") {
         if (computerSelection === "paper") {
-            --playerScore
+            ++computerScore
             roundMessage = "You lose!"
         } else if (computerSelection === "scissors") {
             ++playerScore
@@ -43,12 +42,12 @@ function playRound(playerSelection) {
             ++playerScore
             roundMessage = "You win!"
         } else if (computerSelection === "scissors") {
-            --playerScore
+            ++computerScore
             roundMessage = "You lose!"
         }
     } else if (playerSelection === "scissors") {
         if (computerSelection === "rock") {
-            --playerScore
+            ++computerScore
             roundMessage = "You lose!"
         } else if (computerSelection === "paper") {
             ++playerScore
@@ -56,11 +55,27 @@ function playRound(playerSelection) {
         } 
     }
 
-    const scoreSpan = document.querySelector("#score")
-    scoreSpan.textContent = `Score: ${playerScore}`
+    const playerScoreSpan = document.querySelector("#playerScoreSpan")
+    playerScoreSpan.textContent = `Player score: ${playerScore}`
+
+    const computerScoreSpan = document.querySelector("#computerScoreSpan")
+    computerScoreSpan.textContent = `Computer score: ${computerScore}`
 
     const newRoundDiv = document.createElement("div")
     newRoundDiv.textContent = `Round ${round++}: ${roundMessage}`
     document.querySelector("#rounds").appendChild(newRoundDiv)
+
+    checkWinner()
 }
   
+function checkWinner() {
+    if (playerScore === 5) {
+        alert("Congratulations! You are the winner.")
+        location.reload()
+    } else if (computerScore === 5) {
+        alert("Game over!")
+        location.reload()
+    }
+
+    
+}
